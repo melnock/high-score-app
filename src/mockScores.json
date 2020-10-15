@@ -1,0 +1,14 @@
+{
+  "data": [
+    {"name": "Jane Doe", "totalPoints": 157, "clicks": 5},
+    {"name": "Lily Allen", "totalPoints": 234, "clicks": 8},
+    {"name": "Katara", "totalPoints": 390, "clicks": 10},
+    {"name": "Aang", "totalPoints": 232, "clicks": 10},
+    {"name": "Appa", "totalPoints": 395, "clicks": 10},
+    {"name": "Mo Mo", "totalPoints": 109, "clicks": 9},
+    {"name": "Korra", "totalPoints": 505, "clicks": 10},
+    {"name": "Sakka", "totalPoints": 423, "clicks": 6},
+    {"name": "Gran Gran", "totalPoints": 222, "clicks": 7},
+    {"name": "Uncle Iro", "totalPoints": 480, "clicks": 8}
+  ]
+}

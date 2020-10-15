@@ -3,6 +3,9 @@ import React, {useState} from 'react';
 import ScoreGenerator from './ScoreGenerator';
 import ScoreSubmission from './ScoreSubmission';
 import HighScoreChart from './HighScoreChart';
+
+import mockScores from './mockScores';
+
 import './App.css';
 
 function App() {
@@ -12,6 +15,7 @@ function App() {
   const [cumulativeScore, setCumulativeScore] = useState(0);
   // number of times the user has clicked the new score button
   const [clickCount, setClickCount] = useState(0);
+  const [highScores, setHighScores] = useState([]);
 
   const getNewCurrentScore = () => {
     // verify the click count is less than 10
@@ -24,11 +28,19 @@ function App() {
     }
   };
 
+  const getHighScores = () => {
+    fetch('/getHighScores').then( resp => {
+      console.log(resp.json());
+
+      setHighScores(JSON.parse(mockScores.data));
+    })
+  };
+
   return (
     <div className="high-score-app">
       <ScoreGenerator currentScore={currentScore} getNewCurrentScore={getNewCurrentScore}/>
       <ScoreSubmission culmulativeScore={cumulativeScore}/>
-      <HighScoreChart/>
+      <HighScoreChart highScores={highScores}/>
     </div>
   );
 }
