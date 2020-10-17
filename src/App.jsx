@@ -62,10 +62,22 @@ function App() {
      return aValue - bValue;
   };
 
+  // when a user saves a score, add it to our existing scores for the chart and reset the game.
+  const addNewHighScore = newScore => {
+    const copyHighScores = [...highScores];
+    copyHighScores.push(newScore);
+    setHighScores(copyHighScores);
+    // once a user has added the score to our high scores,
+    // it is time to reset the values in order to play again
+    setCurrentScore(0);
+    setClickCount(0);
+    setCumulativeScore(0);
+  };
+
   return (
     <div className="high-score-app">
       <ScoreGenerator currentScore={currentScore} getNewCurrentScore={getNewCurrentScore}/>
-      <ScoreSubmission cumulativeScore={cumulativeScore} clickCount={clickCount}/>
+      <ScoreSubmission cumulativeScore={cumulativeScore} clickCount={clickCount} addNewHighScore={addNewHighScore}/>
       <HighScoreChart
         highScores={highScores}
         cumulativeScore={cumulativeScore}

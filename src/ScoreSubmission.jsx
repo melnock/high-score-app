@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from "prop-types";
 
-const ScoreSubmission = ({cumulativeScore, clickCount}) => {
+const ScoreSubmission = ({cumulativeScore, clickCount, addNewHighScore}) => {
   const [userName, setUserName] = useState('');
   const [submitError, setSubmitError] = useState('');
 
@@ -12,11 +12,14 @@ const ScoreSubmission = ({cumulativeScore, clickCount}) => {
       const gameData = {
         name: userName,
         totalPoints: cumulativeScore,
-        totalClicks: clickCount
+        totalClicks: clickCount,
+        // make a random id for now
+        id: Math.round(Math.random() * 100)
       };
       // no errors that the user needs to address, so we'll reset if they had some.
       setSubmitError('');
 
+      // post the new score to the server
       fetch('https://cors-anywhere.herokuapp.com/https://my-json-server.typicode.com/melnock/high-score-app/data', {
         method: 'POST',
         mode: 'cors',
@@ -26,13 +29,13 @@ const ScoreSubmission = ({cumulativeScore, clickCount}) => {
         body: JSON.stringify(gameData)
       }).then(resp => {
         return resp.json()
-      }).then(newScores => {
-        console.log(newScores);
+      }).then(newScore => {
+        addNewHighScore(newScore);
       }).catch(error => {
         console.error(error);
       });
     } else {
-      setSubmitError('Need to add a name');
+      setSubmitError('Please add a name');
     }
   };
 
@@ -52,7 +55,8 @@ const ScoreSubmission = ({cumulativeScore, clickCount}) => {
 
 ScoreSubmission.propTypes = {
   cumulativeScore: PropTypes.number,
-  clickCount: PropTypes.number
+  clickCount: PropTypes.number,
+  addNewHighScore: PropTypes.func
 };
 
 export default ScoreSubmission;

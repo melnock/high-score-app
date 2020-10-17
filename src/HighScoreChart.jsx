@@ -12,7 +12,7 @@ const headerLabels = {
 const HighScoresChart = ({highScores, cumulativeScore, sortMethod, isHighScoresChartLoading}) => {
   // spread the high scores from the api to avoid mutating the original array
   // sort the values by score or avg score / clicks
-  const sortedHighScores = [...highScores].sort(sortMethod).reverse();
+  const sortedHighScores = [...highScores].sort(sortMethod).reverse().slice(0, 10);
   // Convert the sorted scores from the api request into line items for the high score chart
   const HighScores = sortedHighScores.map( score => {
     return <HighScoreLineItem key={score.name + score.totalPoints} highScore={score}/>
