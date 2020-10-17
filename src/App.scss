@@ -1,14 +1,39 @@
 .high-score-app {
   margin: 30px auto;
   font-family: Avenir, sans-serif;
-  .score-generator {
+  color: grey;
 
+  .score-generator {
+    width: 300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
   }
   .score-submission {
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    input {
+      height: 40px;
+      padding: 5px 10px;
+      margin-right: 15px;
+      width: 192px;
+      border: 1px solid grey;
+      border-radius: 3px;
+      &:hover {
+        border-color: purple;
+      }
+    }
   }
   .high-score-chart {
     width: 450px;
+    border: 2px solid lightblue;
+    border-radius: 5px;
+    margin: 20px auto;
     .high-score-line-item {
       width: 100%;
       display: flex;
@@ -17,7 +42,7 @@
       p {
         width: 150px;
         height: 30px;
-        border-right: 1px solid grey;
+        border-right: 1px solid lightblue;
         margin: 0;
         text-align: center;
         padding: 5px 10px;
@@ -37,5 +62,8 @@
     background-color: purple;
     color: aliceblue;
     height: 44px;
+    &:hover {
+      background-color: darkmagenta;
+    }
   }
 }

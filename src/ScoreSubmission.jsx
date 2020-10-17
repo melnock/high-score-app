@@ -19,7 +19,7 @@ const ScoreSubmission = ({cumulativeScore, clickCount}) => {
         },
         body: JSON.stringify(gameData)
       }).then(resp => {
-        console.log(resp.json());
+        console.log(resp);
       });
     } else {
       setSubmitError('Need to add a name');

@@ -4,7 +4,7 @@ import ScoreGenerator from './ScoreGenerator';
 import ScoreSubmission from './ScoreSubmission';
 import HighScoreChart from './HighScoreChart';
 
-import mockScores from './mockScores';
+import mockScores from './db';
 
 import './App.scss';
 
@@ -29,7 +29,7 @@ function App() {
     // verify the click count is less than 10
     // if it reaches 10, we've given the user too many clicks
     if (clickCount < 10) {
-      const newScore = (Math.random() * 200) - 100;
+      const newScore = Math.round(Math.random() * 200) - 100;
       setClickCount(clickCount + 1);
       setCumulativeScore(currentScore + newScore);
       setCurrentScore(newScore);
