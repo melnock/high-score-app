@@ -2,23 +2,28 @@ import React, {useState} from 'react';
 
 const ScoreSubmission = ({cumulativeScore, clickCount}) => {
   const [userName, setUserName] = useState('');
+  const [submitError, setSubmitError] = useState('');
 
   const submitScore = () => {
-    const gameData = {
-      userName,
-      cumulativeScore,
-      totalClicks: clickCount
-    };
-
-    fetch('/saveUserScore', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(gameData)
-    }).then( resp => {
-      console.log(resp.json());
-    });
+    if (userName.length) {
+      const gameData = {
+        name: userName,
+        totalPoints: cumulativeScore,
+        totalClicks: clickCount
+      };
+      setSubmitError('');
+      fetch('/saveUserScore', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(gameData)
+      }).then(resp => {
+        console.log(resp.json());
+      });
+    } else {
+      setSubmitError('Need to add a name');
+    }
   };
 
   const handleOnChange = (event) => {
@@ -27,9 +32,10 @@ const ScoreSubmission = ({cumulativeScore, clickCount}) => {
   };
 
   return (
-    <div className="score-generator">
+    <div className="score-submission">
+      {Boolean(submitError.length) && <p className="submit-error">{submitError}</p> }
       <input placeholder="Enter your name to submit score" value={userName} onChange={handleOnChange}/>
-      <button onClick={submitScore}> Generate New Score </button>
+      <button onClick={submitScore}> Submit Score </button>
     </div>
   );
 };

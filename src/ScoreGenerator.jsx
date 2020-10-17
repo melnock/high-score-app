@@ -4,7 +4,7 @@ const ScoreGenerator = ({currentScore, getNewCurrentScore}) => {
   return (
     <div className="score-generator">
       <h3>Current Score:</h3>
-      <h5>{currentScore}</h5>
+      <h1>{currentScore}</h1>
       <button onClick={getNewCurrentScore}> Generate New Score </button>
     </div>
   );

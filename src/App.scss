@@ -1,0 +1,41 @@
+.high-score-app {
+  margin: 30px auto;
+  font-family: Avenir, sans-serif;
+  .score-generator {
+
+  }
+  .score-submission {
+
+  }
+  .high-score-chart {
+    width: 450px;
+    .high-score-line-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      p {
+        width: 150px;
+        height: 30px;
+        border-right: 1px solid grey;
+        margin: 0;
+        text-align: center;
+        padding: 5px 10px;
+        &:last-of-type {
+          border: none;
+        }
+      }
+      &.is-header {
+        font-weight: bold;
+      }
+    }
+  }
+  button {
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    background-color: purple;
+    color: aliceblue;
+    height: 44px;
+  }
+}
