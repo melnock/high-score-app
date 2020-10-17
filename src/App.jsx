@@ -17,6 +17,7 @@ function App() {
   // number of times the user has clicked the new score button
   const [clickCount, setClickCount] = useState(0);
   const [highScores, setHighScores] = useState([]);
+  const [isHighScoresChartLoading, setIsHighScoresChartLoading] = useState(false);
   const [highScoresChartSort, setHighScoresChartSort] = useState(TOTAL_POINTS_SORT);
 
   useEffect(() => {
@@ -35,11 +36,13 @@ function App() {
   };
 
   const getHighScores = () => {
+    // look at the mock server to retrieve the scores
+    setIsHighScoresChartLoading(true);
     fetch('https://cors-anywhere.herokuapp.com/https://my-json-server.typicode.com/melnock/high-score-app/data')
       .then( resp => {
         return resp.json()
       }).then(data => {
-          console.log(data);
+        setIsHighScoresChartLoading(false);
         setHighScores(data);
       }).catch(error => console.error(error));
   };
@@ -62,12 +65,13 @@ function App() {
   return (
     <div className="high-score-app">
       <ScoreGenerator currentScore={currentScore} getNewCurrentScore={getNewCurrentScore}/>
-      <ScoreSubmission culmulativeScore={cumulativeScore}/>
+      <ScoreSubmission cumulativeScore={cumulativeScore} clickCount={clickCount}/>
       <HighScoreChart
         highScores={highScores}
         cumulativeScore={cumulativeScore}
         sortMethod={sortMethod}
         setHighScoreChartSort={setHighScoresChartSort}
+        isHighScoresChartLoading={isHighScoresChartLoading}
       />
     </div>
   );

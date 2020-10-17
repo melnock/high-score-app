@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 
 const ScoreGenerator = ({currentScore, getNewCurrentScore}) => {
   return (
@@ -8,6 +9,11 @@ const ScoreGenerator = ({currentScore, getNewCurrentScore}) => {
       <button onClick={getNewCurrentScore}> Generate New Score </button>
     </div>
   );
+};
+
+ScoreGenerator.propTypes = {
+  currentScore: PropTypes.number,
+  getNewCurrentScore: PropTypes.func
 };
 
 export default ScoreGenerator;

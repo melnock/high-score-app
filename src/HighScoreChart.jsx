@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import HighScoreLineItem from "./HighScoreLineItem";
+import LoadingState from "./LoadingState";
 
 const headerLabels = {
   name: 'Name',
@@ -7,7 +9,7 @@ const headerLabels = {
   clicks: 'Clicks'
 };
 
-const HighScoresChart = ({highScores, cumulativeScore, sortMethod}) => {
+const HighScoresChart = ({highScores, cumulativeScore, sortMethod, isHighScoresChartLoading}) => {
   // spread the high scores from the api to avoid mutating the original array
   // sort the values by score or avg score / clicks
   const sortedHighScores = [...highScores].sort(sortMethod).reverse();
@@ -23,8 +25,22 @@ const HighScoresChart = ({highScores, cumulativeScore, sortMethod}) => {
   return (
     <div className="high-score-chart">
       {HighScores}
+      {isHighScoresChartLoading && <LoadingState/>}
     </div>
   );
+};
+
+HighScoresChart.propTypes = {
+  highScores: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      totalPoints: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      clicks: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    })
+  ),
+  cumulativeScore: PropTypes.number,
+  sortMethod: PropTypes.func,
+  isHighScoresChartLoading: PropTypes.bool
 };
 
 export default HighScoresChart;

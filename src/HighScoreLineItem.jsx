@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import PropTypes from "prop-types";
 
 const HighScoreLineItem = ({highScore, isHeader}) => {
   const highScoreLineItemClass = classnames({
@@ -14,6 +15,15 @@ const HighScoreLineItem = ({highScore, isHeader}) => {
       <p className="clicks">{highScore.clicks}</p>
     </div>
   );
+};
+
+HighScoreLineItem.propTypes = {
+  highScore: PropTypes.shape({
+    name: PropTypes.string,
+    totalPoints: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    clicks: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  }),
+  isHeader: PropTypes.bool
 };
 
 export default HighScoreLineItem;
