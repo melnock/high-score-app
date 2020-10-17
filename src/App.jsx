@@ -4,8 +4,6 @@ import ScoreGenerator from './ScoreGenerator';
 import ScoreSubmission from './ScoreSubmission';
 import HighScoreChart from './HighScoreChart';
 
-import mockScores from './db';
-
 import './App.scss';
 
 const TOTAL_POINTS_SORT = 'totalPoints';
@@ -37,11 +35,13 @@ function App() {
   };
 
   const getHighScores = () => {
-    fetch('/getHighScores').then( resp => {
-      console.log(mockScores);
-
-      setHighScores(mockScores.data);
-    }).catch(error => console.error(error));
+    fetch('https://cors-anywhere.herokuapp.com/https://my-json-server.typicode.com/melnock/high-score-app/data')
+      .then( resp => {
+        return resp.json()
+      }).then(data => {
+          console.log(data);
+        setHighScores(data);
+      }).catch(error => console.error(error));
   };
 
   const sortMethod = (a, b) => {

@@ -1,6 +1,15 @@
+## High Score App
+
+This application allows a user to play a simple game.
+A user can click a button on screen to receive an integer between -100 and 100 up to 10 times. 
+The goal is to get the highest cumulative integer value possible.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
+
+To run the mock server of data visit and leave the tab open:
+[https://my-json-server.typicode.com/melnock/high-score-app](https://my-json-server.typicode.com/melnock/high-score-app)
 
 In the project directory, you can run:
 
