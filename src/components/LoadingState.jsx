@@ -1,5 +1,5 @@
 import React from 'react';
-import './LoadingState.scss';
+import '../styles/LoadingState.scss';
 
 const LoadingState = () => {
   return (

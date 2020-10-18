@@ -48,7 +48,7 @@ const ScoreSubmission = ({cumulativeScore, clickCount, addNewHighScore}) => {
     <div className="score-submission">
       {Boolean(submitError.length) && <p className="submit-error">{submitError}</p> }
       <input placeholder="Enter your name to submit score" value={userName} onChange={handleOnChange}/>
-      <button onClick={submitScore}> Submit Score </button>
+      <button onClick={submitScore}> Send it! </button>
     </div>
   );
 };
