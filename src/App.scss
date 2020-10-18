@@ -3,15 +3,24 @@
   font-family: Avenir, sans-serif;
   color: grey;
 
+  .game-header {
+    position: fixed;
+    top: 0;
+    height: 350px;
+    width: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+
   .score-generator {
     width: 450px;
-    margin: 0 auto;
+    margin: 50px auto 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     flex-direction: column;
-    background-color: aliceblue;
+    background-color: white;
     border-radius: 5px;
     padding: 30px 0;
   }
@@ -37,7 +46,7 @@
   }
   .high-score-chart {
     width: 450px;
-    border: 2px solid lightblue;
+    border: 2px solid grey;
     border-radius: 5px;
     margin: 20px auto;
     .high-score-line-item {
@@ -48,7 +57,7 @@
       p {
         width: 150px;
         height: 30px;
-        border-right: 1px solid lightblue;
+        border-right: 1px solid grey;
         margin: 0;
         text-align: center;
         padding: 5px 10px;
@@ -66,7 +75,7 @@
     border-radius: 5px;
     padding: 5px 10px;
     background-color: purple;
-    color: aliceblue;
+    color: lightgrey;
     height: 44px;
     &:hover {
       background-color: darkmagenta;

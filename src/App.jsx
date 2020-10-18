@@ -76,6 +76,7 @@ function App() {
 
   return (
     <div className="high-score-app">
+      <img className="game-header" src="https://images.pexels.com/photos/1314529/pexels-photo-1314529.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
       <ScoreGenerator currentScore={currentScore} getNewCurrentScore={getNewCurrentScore}/>
       <ScoreSubmission cumulativeScore={cumulativeScore} clickCount={clickCount} addNewHighScore={addNewHighScore}/>
       <HighScoreChart

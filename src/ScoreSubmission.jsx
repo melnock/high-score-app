@@ -12,7 +12,7 @@ const ScoreSubmission = ({cumulativeScore, clickCount, addNewHighScore}) => {
       const gameData = {
         name: userName,
         totalPoints: cumulativeScore,
-        totalClicks: clickCount,
+        clicks: clickCount,
         // make a random id for now
         id: Math.round(Math.random() * 100)
       };
