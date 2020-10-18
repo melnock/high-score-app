@@ -9,10 +9,11 @@ const headerLabels = {
   clicks: 'Clicks'
 };
 
-const HighScoresChart = ({highScores, cumulativeScore, sortMethod, isHighScoresChartLoading}) => {
+const HighScoresChart = ({highScores, currentGame, sortMethod, isHighScoresChartLoading}) => {
   // spread the high scores from the api to avoid mutating the original array
   // sort the values by score or avg score / clicks
-  const sortedHighScores = [...highScores].sort(sortMethod).reverse().slice(0, 10);
+  // adding in the current game to show current ranking of the current game
+  const sortedHighScores = [...highScores, currentGame].sort(sortMethod).reverse().slice(0, 10);
   // Convert the sorted scores from the api request into line items for the high score chart
   const HighScores = sortedHighScores.map( score => {
     return <HighScoreLineItem key={score.name + score.totalPoints} highScore={score}/>
@@ -38,7 +39,12 @@ HighScoresChart.propTypes = {
       clicks: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     })
   ),
-  cumulativeScore: PropTypes.number,
+  currentGame: PropTypes.shape({
+    name: PropTypes.string,
+    totalPoints: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    clicks: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    isCurrentGame: PropTypes.bool
+  }),
   sortMethod: PropTypes.func,
   isHighScoresChartLoading: PropTypes.bool
 };

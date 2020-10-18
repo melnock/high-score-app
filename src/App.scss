@@ -86,6 +86,10 @@
       &.is-header {
         font-weight: bold;
       }
+      &.is-current-game {
+        font-weight: bold;
+        color: coral;
+      }
     }
   }
   button {

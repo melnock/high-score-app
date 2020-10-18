@@ -3,7 +3,6 @@ import classnames from 'classnames';
 
 const ClickCounter = ({clickCount}) => {
   const clickArray = Array.from({length: 10}, (_, i) => i + 1);
-  console.log(clickArray);
   const ClickCountIndicators = clickArray.map(item => {
     const indicatorClass = classnames({
       'indicator-item': true,
