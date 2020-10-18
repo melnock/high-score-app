@@ -4,10 +4,9 @@ import ScoreGenerator from './components/ScoreGenerator';
 import ScoreSubmission from './components/ScoreSubmission';
 import HighScoreChart from './components/HighScoreChart';
 
-import './App.scss';
+import {TOTAL_POINTS_SORT, AVG_POINTS_PER_CLICK_SORT} from "./constants/constants";
 
-const TOTAL_POINTS_SORT = 'totalPoints';
-const AVG_POINTS_PER_CLICK_SORT = 'avgPointsPerClick';
+import './App.scss';
 
 function App() {
   // currentScore is the visible score
@@ -16,8 +15,11 @@ function App() {
   const [cumulativeScore, setCumulativeScore] = useState(0);
   // number of times the user has clicked the new score button
   const [clickCount, setClickCount] = useState(0);
+  // retrieved scores from api
   const [highScores, setHighScores] = useState([]);
+  // while waiting for the values for high score chart to populate, indicate to the user that they are waiting
   const [isHighScoresChartLoading, setIsHighScoresChartLoading] = useState(false);
+  // configuration determining how the score chart should be sorted
   const [highScoresChartSort, setHighScoresChartSort] = useState(TOTAL_POINTS_SORT);
 
   useEffect(() => {
@@ -48,18 +50,9 @@ function App() {
   };
 
   const sortMethod = (a, b) => {
-    let aValue;
-    let bValue;
-    if (highScoresChartSort === TOTAL_POINTS_SORT) {
-      aValue = a.totalPoints;
-      bValue = b.totalPoints;
-    } else if (highScoresChartSort === AVG_POINTS_PER_CLICK_SORT) {
-      aValue = a.totalPoints / a.clicks;
-      bValue = b.totalPoints / b.clicks;
-    } else {
-      throw new Error('Unsupported sort type');
-    }
-     return aValue - bValue;
+    const aValue = highScoresChartSort.dataFormatter(a);
+    const bValue = highScoresChartSort.dataFormatter(b);
+    return aValue - bValue;
   };
 
   // when a user saves a score, add it to our existing scores for the chart and reset the game.
@@ -69,6 +62,11 @@ function App() {
     setHighScores(copyHighScores);
     // once a user has added the score to our high scores,
     // it is time to reset the values in order to play again
+    resetGame();
+  };
+
+  const resetGame = () => {
+    // set all values back to default/initial values
     setCurrentScore(0);
     setClickCount(0);
     setCumulativeScore(0);
@@ -76,11 +74,16 @@ function App() {
 
   return (
     <div className="high-score-app">
-      <img className="game-header" src="https://images.pexels.com/photos/1314529/pexels-photo-1314529.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
+      <img
+        alt="number game header image"
+        className="game-header"
+        src="https://images.pexels.com/photos/1314529/pexels-photo-1314529.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      />
       <ScoreGenerator
         currentScore={currentScore}
         getNewCurrentScore={getNewCurrentScore}
         clickCount={clickCount}
+        resetGame={resetGame}
       />
       <ScoreSubmission
         cumulativeScore={cumulativeScore}
@@ -97,6 +100,7 @@ function App() {
         }}
         sortMethod={sortMethod}
         setHighScoreChartSort={setHighScoresChartSort}
+        highScoreChartSort={highScoresChartSort}
         isHighScoresChartLoading={isHighScoresChartLoading}
       />
     </div>

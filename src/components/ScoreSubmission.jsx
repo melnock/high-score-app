@@ -14,12 +14,14 @@ const ScoreSubmission = ({cumulativeScore, clickCount, addNewHighScore}) => {
         totalPoints: cumulativeScore,
         clicks: clickCount,
         // make a random id for now
-        id: Math.round(Math.random() * 100)
+        // add 10 to ensure we have no duplicates based off the seeds' ids.
+        id: Math.round(Math.random() * 100) + 10
       };
       // no errors that the user needs to address, so we'll reset if they had some.
       setSubmitError('');
 
       // post the new score to the server
+      // score submissions don't persist
       fetch('https://cors-anywhere.herokuapp.com/https://my-json-server.typicode.com/melnock/high-score-app/data', {
         method: 'POST',
         mode: 'cors',
@@ -39,7 +41,7 @@ const ScoreSubmission = ({cumulativeScore, clickCount, addNewHighScore}) => {
     }
   };
 
-  const handleOnChange = (event) => {
+  const handleOnChangeNameInput = (event) => {
     const newName = event.target.value;
     setUserName(newName);
   };
@@ -47,7 +49,7 @@ const ScoreSubmission = ({cumulativeScore, clickCount, addNewHighScore}) => {
   return (
     <div className="score-submission">
       {Boolean(submitError.length) && <p className="submit-error">{submitError}</p> }
-      <input placeholder="Enter your name to submit score" value={userName} onChange={handleOnChange}/>
+      <input placeholder="Enter your name to submit score" value={userName} onChange={handleOnChangeNameInput}/>
       <button onClick={submitScore}> Send it! </button>
     </div>
   );

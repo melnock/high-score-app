@@ -2,17 +2,16 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from "prop-types";
 
-const HighScoreLineItem = ({highScore, isHeader}) => {
+const HighScoreLineItem = ({highScore, dataFormatter}) => {
   const highScoreLineItemClass = classnames({
     'high-score-line-item': true,
-    'is-header': isHeader,
     'is-current-game': highScore.isCurrentGame
   });
 
   return (
     <div className={highScoreLineItemClass}>
       <p className="name">{highScore.name}</p>
-      <p className="total-score">{highScore.totalPoints}</p>
+      <p className="total-score">{dataFormatter(highScore)}</p>
       <p className="clicks">{highScore.clicks}</p>
     </div>
   );
@@ -25,7 +24,7 @@ HighScoreLineItem.propTypes = {
     clicks: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     isCurrentGame: PropTypes.bool
   }),
-  isHeader: PropTypes.bool
+  dataFormatter: PropTypes.func
 };
 
 export default HighScoreLineItem;

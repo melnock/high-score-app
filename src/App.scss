@@ -23,6 +23,15 @@
     background-color: white;
     border-radius: 5px;
     padding: 0 0 30px 0;
+    position: relative;
+    .reset-game-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      height: 25px;
+      width: 25px;
+      background: url("./assets/refresh-circular-arrow-hand-drawn-symbol.svg") center center no-repeat;
+    }
     .click-counter {
       width: 410px;
       padding: 10px 20px;
@@ -47,8 +56,13 @@
     justify-content: center;
     align-items: center;
     margin: 20px;
+    position: relative;
     .submit-error {
       color: darkred;
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-80%);
     }
     input {
       height: 40px;
@@ -63,7 +77,7 @@
     }
   }
   .high-score-chart {
-    width: 450px;
+    width: 540px;
     border: 2px solid grey;
     border-radius: 5px;
     margin: 20px auto;
@@ -73,18 +87,28 @@
       align-items: center;
       justify-content: space-between;
       p {
-        width: 150px;
+        width: 180px;
         height: 30px;
         border-right: 1px solid grey;
         margin: 0;
         text-align: center;
         padding: 5px 10px;
+        position: relative;
         &:last-of-type {
           border: none;
         }
       }
       &.is-header {
         font-weight: bold;
+        .chart-sort-toggle {
+          position: absolute;
+          right: 5px;
+          top: 5px;
+          width: 25px;
+          height: 25px;
+          margin-left: 10px;
+          background: url("./assets/swap.svg") center center no-repeat;
+        }
       }
       &.is-current-game {
         font-weight: bold;
@@ -101,6 +125,9 @@
     height: 44px;
     &:hover {
       background-color: darkmagenta;
+    }
+    &:focus {
+      outline: none;
     }
   }
 }
