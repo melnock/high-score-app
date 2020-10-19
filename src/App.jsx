@@ -44,9 +44,8 @@ function App() {
     setIsHighScoresChartLoading(true);
     // look at the mock server to retrieve the scores
     /* Optimizations:
-     - include a "sortBy" parameter to request a pre-sorted list directly from the api
+     - include a "sortBy" parameter to request a pre-sorted list directly from the api by one of the pre-defined sort options
      - include a "resultsSize" parameter to limit the number of sorted results
-     -
      */
     fetch('https://cors-anywhere.herokuapp.com/https://my-json-server.typicode.com/melnock/high-score-app/data')
       .then( resp => {
