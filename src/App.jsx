@@ -71,6 +71,9 @@ function App() {
     resetGame();
   };
 
+  // opting for the manual approach to the game reset.
+  // while it adds clicks, the user cannot accidentally skip through the submission window, if they want to submit
+  // to add a degree of difficulty, removing the manual reset would require the user to pay closer attention.
   const resetGame = () => {
     // set all values back to default/initial values
     setCurrentScore(0);
@@ -101,7 +104,7 @@ function App() {
         currentGame={{
           name: 'You',
           totalPoints: cumulativeScore,
-          isCurrentGame: true,
+          isCurrentGame: true, // identify current game to style differently
           clicks: clickCount
         }}
         sortMethod={sortMethod}
