@@ -50,8 +50,8 @@ function App() {
       .then( resp => {
         return resp.json()
       }).then(data => {
-        setIsHighScoresChartLoading(false);
         setHighScores(data);
+        setIsHighScoresChartLoading(false);
       }).catch(error => console.error(error));
   };
 

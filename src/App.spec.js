@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {mount} from 'enzyme';
-import {DEFAULT_CLICK_LIMIT, TOTAL_POINTS_SORT} from "./constants/constants";
+import {DEFAULT_CLICK_LIMIT, formatAvgPointsPerClick, TOTAL_POINTS_SORT} from "./constants/constants";
 
 import App from './App';
 import ScoreGenerator from "./components/ScoreGenerator";
@@ -148,6 +148,12 @@ describe('HighScoreChart', () => {
     });
     expect(highScoreChart.find(HighScoreLineItem)).toHaveLength(10);
   });
+  it('properly sorts the unsorted items for display', () => {
+    expect.assertions(3);
+    expect(highScoreChart.find(HighScoreLineItem).at(0).prop('highScore')).toMatchObject(mockScoresSorted[0]);
+    expect(highScoreChart.find(HighScoreLineItem).at(5).prop('highScore')).toMatchObject(mockScoresSorted[5]);
+    expect(highScoreChart.find(HighScoreLineItem).at(7).prop('highScore')).toMatchObject(mockScoresSorted[7]);
+  });
   it('displays the current game if the score is high enough', async () => {
     expect.assertions(1);
     await promiseSetProps(highScoreChart, {
@@ -159,5 +165,40 @@ describe('HighScoreChart', () => {
       }
     });
     expect(highScoreChart.find('.is-current-game')).toHaveLength(1);
+  });
+});
+
+// utils are important building blocks to be tested
+describe('formatAvgPointsPerClick util', () => {
+  // verify util does not attempt to divide by zero
+  it('returns zero if there have been no clicks', () => {
+    const mockHighScore = {
+      name: 'Test',
+      totalPoints: 0,
+      clicks: 0
+    };
+    const testFormattedAvg = formatAvgPointsPerClick(mockHighScore);
+    expect.assertions(1);
+    expect(testFormattedAvg).toBe(0);
+  });
+  it('averages the clicks by the total points', () => {
+    const mockHighScore = {
+      name: 'Test',
+      totalPoints: 250,
+      clicks: 5
+    };
+    const testFormattedAvg = formatAvgPointsPerClick(mockHighScore);
+    expect.assertions(1);
+    expect(testFormattedAvg).toBe('50.00');
+  });
+  it('averages the clicks by the total points and only has two decimal places', () => {
+    const mockHighScore = {
+      name: 'Test',
+      totalPoints: 100,
+      clicks: 3
+    };
+    const testFormattedAvg = formatAvgPointsPerClick(mockHighScore);
+    expect.assertions(1);
+    expect(testFormattedAvg).toBe('33.33');
   });
 });

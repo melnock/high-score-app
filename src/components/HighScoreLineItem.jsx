@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from "prop-types";
+import {formatAvgPointsPerClick} from "../constants/constants";
 
 const HighScoreLineItem = ({highScore, dataFormatter}) => {
   const highScoreLineItemClass = classnames({
@@ -11,7 +12,8 @@ const HighScoreLineItem = ({highScore, dataFormatter}) => {
   return (
     <div className={highScoreLineItemClass}>
       <p className="name">{highScore.name}</p>
-      <p className="total-score">{dataFormatter(highScore)}</p>
+      <p className="total-score">{highScore.totalPoints}</p>
+      <p className="avg-points-per-click">{formatAvgPointsPerClick(highScore)}</p>
       <p className="clicks">{highScore.clicks}</p>
     </div>
   );
