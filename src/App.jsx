@@ -4,6 +4,8 @@ import ScoreGenerator from './components/ScoreGenerator';
 import ScoreSubmission from './components/ScoreSubmission';
 import HighScoreChart from './components/HighScoreChart';
 
+import mockData from '../db';
+
 import {TOTAL_POINTS_SORT, DEFAULT_CLICK_LIMIT} from "./constants/constants";
 
 import './App.scss';
@@ -50,7 +52,13 @@ function App() {
       .then( resp => {
         return resp.json()
       }).then(data => {
-        setHighScores(data);
+        if (data && data.length) {
+          setHighScores(data);
+        } else {
+          // if the mock server isn't running, still show the mock data.
+          // this is only for showcase purposes
+          setHighScores(mockData.data);
+        }
         setIsHighScoresChartLoading(false);
       }).catch(error => console.error(error));
   };
