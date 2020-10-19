@@ -8,8 +8,9 @@ import ScoreGenerator from "./components/ScoreGenerator";
 import ClickCounter from "./components/ClickCounter";
 import HighScoresChart from "./components/HighScoreChart";
 import LoadingState from "./components/LoadingState";
+import HighScoreLineItem from "./components/HighScoreLineItem";
 
-const mockScores = [
+const mockScoresUnsorted = [
   {"name": "Jane Doe", "totalPoints": 157, "clicks": 5, "id": 1},
   {"name": "Lily Allen", "totalPoints": 234, "clicks": 8, "id": 2},
   {"name": "Katara", "totalPoints": 390, "clicks": 10, "id": 3},
@@ -19,7 +20,22 @@ const mockScores = [
   {"name": "Korra", "totalPoints": 505, "clicks": 10, "id": 7},
   {"name": "Sakka", "totalPoints": 423, "clicks": 6, "id": 8},
   {"name": "Gran Gran", "totalPoints": 222, "clicks": 7, "id": 9},
-  {"name": "Uncle Iro", "totalPoints": 480, "clicks": 8, "id": 10}
+  {"name": "Uncle Iro", "totalPoints": 480, "clicks": 8, "id": 10},
+  {"name": "Toph", "totalPoints": 100, "clicks": 8, "id": 11}
+];
+
+const mockScoresSorted = [
+  {"name": "Korra", "totalPoints": 505, "clicks": 10, "id": 7},
+  {"name": "Uncle Iro", "totalPoints": 480, "clicks": 8, "id": 10},
+  {"name": "Sakka", "totalPoints": 423, "clicks": 6, "id": 8},
+  {"name": "Appa", "totalPoints": 395, "clicks": 10, "id": 5},
+  {"name": "Katara", "totalPoints": 390, "clicks": 10, "id": 3},
+  {"name": "Lily Allen", "totalPoints": 234, "clicks": 8, "id": 2},
+  {"name": "Aang", "totalPoints": 232, "clicks": 10, "id": 4},
+  {"name": "Gran Gran", "totalPoints": 222, "clicks": 7, "id": 9},
+  {"name": "Jane Doe", "totalPoints": 157, "clicks": 5, "id": 1},
+  {"name": "Mo Mo", "totalPoints": 109, "clicks": 9, "id": 6},
+  {"name": "Toph", "totalPoints": 100, "clicks": 8, "id": 11}
 ];
 
 const mockSortMethod = (a, b) => {
@@ -106,7 +122,7 @@ describe('HighScoreChart', () => {
   beforeAll(() => {
     highScoreChart = mount(
       <HighScoresChart
-        highScores={mockScores}
+        highScores={mockScoresUnsorted}
         currentGame={{
           name: 'You',
           totalPoints: 0,
@@ -125,8 +141,23 @@ describe('HighScoreChart', () => {
     expect.assertions(1);
     expect(highScoreChart.find(LoadingState)).toHaveLength(1);
   });
-  it('', () => {
+  it('displays no more than 10 items in the chart', async () => {
     expect.assertions(1);
-    expect(highScoreChart.find(LoadingState)).toHaveLength(1);
+    await promiseSetProps(highScoreChart, {
+      isHighScoresChartLoading: false
+    });
+    expect(highScoreChart.find(HighScoreLineItem)).toHaveLength(10);
+  });
+  it('displays the current game if the score is high enough', async () => {
+    expect.assertions(1);
+    await promiseSetProps(highScoreChart, {
+      currentGame: {
+        name: 'You',
+        totalPoints: 400,
+        isCurrentGame: true,
+        clicks: 10
+      }
+    });
+    expect(highScoreChart.find('.is-current-game')).toHaveLength(1);
   });
 });
