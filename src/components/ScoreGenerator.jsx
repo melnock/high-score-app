@@ -7,9 +7,9 @@ const ScoreGenerator = ({currentScore, getNewCurrentScore, clickCount, resetGame
     <div className="score-generator">
       {clickCount > 0 && <button className="reset-game-button" onClick={resetGame}/>}
       <ClickCounter clickCount={clickCount}/>
-      <h3>Current Score:</h3>
-      <h1>{currentScore}</h1>
-      <button onClick={getNewCurrentScore}> Generate New Score </button>
+      <h3 className="current-score-label">Current Score:</h3>
+      <h1 className="current-score">{currentScore}</h1>
+      <button className="generate-score" onClick={getNewCurrentScore}> Generate New Score </button>
     </div>
   );
 };

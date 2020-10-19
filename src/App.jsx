@@ -4,7 +4,7 @@ import ScoreGenerator from './components/ScoreGenerator';
 import ScoreSubmission from './components/ScoreSubmission';
 import HighScoreChart from './components/HighScoreChart';
 
-import {TOTAL_POINTS_SORT, AVG_POINTS_PER_CLICK_SORT} from "./constants/constants";
+import {TOTAL_POINTS_SORT, DEFAULT_CLICK_LIMIT} from "./constants/constants";
 
 import './App.scss';
 
@@ -29,7 +29,7 @@ function App() {
   const getNewCurrentScore = () => {
     // verify the click count is less than 10
     // if it reaches 10, we've given the user too many clicks
-    if (clickCount < 10) {
+    if (clickCount < DEFAULT_CLICK_LIMIT) {
       const newScore = Math.round(Math.random() * 200) - 100;
       setClickCount(clickCount + 1);
       setCumulativeScore(currentScore + newScore);
@@ -38,8 +38,14 @@ function App() {
   };
 
   const getHighScores = () => {
-    // look at the mock server to retrieve the scores
+    // set to loading before making api call
     setIsHighScoresChartLoading(true);
+    // look at the mock server to retrieve the scores
+    /* Optimizations:
+     - include a "sortBy" parameter to request a pre-sorted list directly from the api
+     - include a "resultsSize" parameter to limit the number of sorted results
+     -
+     */
     fetch('https://cors-anywhere.herokuapp.com/https://my-json-server.typicode.com/melnock/high-score-app/data')
       .then( resp => {
         return resp.json()

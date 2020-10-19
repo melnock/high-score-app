@@ -1,3 +1,4 @@
+export const DEFAULT_CLICK_LIMIT = 10;
 export const TOTAL_POINTS_SORT = {
   key: 'totalPoints',
   title: 'Total Points',
